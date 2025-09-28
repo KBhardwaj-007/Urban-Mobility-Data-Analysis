@@ -8,7 +8,6 @@ streamlit
 scikit-learn
 statsmodels
 prophet
-prophet.plot
 datetime
 sqlalchemy
 geopy
