@@ -14,8 +14,6 @@ geopy
 python-dateutil
 logging
 joblib
-sklearn
 folium.plugins
 plotly.express
 datatime
-
