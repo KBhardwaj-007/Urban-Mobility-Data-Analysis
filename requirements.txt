@@ -12,9 +12,9 @@ datetime
 sqlalchemy
 geopy
 python-dateutil
-matplotlib.pyplot
 logging
 joblib
 sklearn.metrics
 folium.plugins
 plotly.express
+
