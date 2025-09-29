@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from prophet import Prophet
 from prophet.plot import plot_plotly
 import datetime
+import calplot
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -113,7 +114,27 @@ with tab2:
         hourly_demand = filtered_df.set_index(datetime_col).resample('h').size().reset_index(name='trip_count')
         fig_hourly = px.bar(hourly_demand, x=datetime_col, y='trip_count', title='Total Trips by Hour')
         st.plotly_chart(fig_hourly, use_container_width=True)
-        
+
+        # 🚖 Top Pickup Hours
+        st.subheader("🚖 Top Pickup Hours")
+        top_hours = filtered_df[datetime_col].dt.hour.value_counts().sort_index()
+        fig_top_hours = px.bar(
+            x=top_hours.index,
+            y=top_hours.values,
+            labels={'x': 'Hour of Day', 'y': 'Trip Count'},
+            title='Ride Demand by Hour of Day'
+        )
+        peak_hour = top_hours.idxmax()
+        peak_value = top_hours.max()
+        fig_top_hours.add_annotation(
+            x=peak_hour,
+            y=peak_value,
+            text=f"Peak Hour: {peak_hour}:00",
+            showarrow=True,
+            arrowhead=1
+        )
+        st.plotly_chart(fig_top_hours, use_container_width=True)
+
         # 2. Demand Heatmap using Seaborn
         st.subheader("Demand Heatmap: Hour of Day vs. Day of Week")
         heatmap_data = filtered_df.groupby([filtered_df[datetime_col].dt.hour, filtered_df[datetime_col].dt.day_name()]).size().unstack()
@@ -124,24 +145,11 @@ with tab2:
         sns.heatmap(heatmap_data, cmap='hot_r', linecolor='white', linewidths=0.5, ax=ax)
         st.pyplot(fig_heatmap)
 
-        # Business Insights as Text
-        st.info(
-            """
-            **Insight:** The heatmap clearly shows two daily peaks on weekdays: a morning rush (7-9 AM) and an evening peak (5-7 PM). 
-            Demand is significantly higher and later on Fridays and Saturdays, indicating strong leisure activity. 
-            This information is crucial for optimizing driver allocation and implementing surge pricing.
-            """
-        )
-
         # Passenger Count Analysis
-        st.markdown("---") # Visual separator
+        st.markdown("---")
         st.subheader("Passenger Count Analysis")
-        
-        # Dataframe for the passenger count distribution
         passenger_counts = filtered_df['passenger_count'].value_counts().reset_index()
         passenger_counts.columns = ['Passenger Count', 'Number of Trips']
-        
-        # Plotly bar chart
         fig_passengers = px.bar(
             passenger_counts,
             x='Passenger Count',
@@ -153,29 +161,41 @@ with tab2:
         )
         st.plotly_chart(fig_passengers, use_container_width=True)
 
-        st.info(
-            """
-            **Insight:** This chart shows the complete breakdown of trip sizes. Overwhelmingly, most trips consist of a single passenger,
-            which strongly indicates that a majority of rides are for individual commutes or travel. 
-            This data is vital for fleet management and marketing strategies.
-            """
+        # 🕓 Trip Duration Histogram
+        st.subheader("🕓 Trip Duration Distribution")
+        fig_duration = px.histogram(
+            filtered_df,
+            x='trip_duration_minutes',
+            nbins=50,
+            title='Distribution of Trip Duration (in minutes)',
+            labels={'trip_duration_minutes': 'Trip Duration (minutes)'}
         )
-        
+        st.plotly_chart(fig_duration, use_container_width=True)
+
+        # 📆 Calendar Heatmap of Demand
+        st.subheader("📆 Calendar Heatmap of Ride Demand")
+        daily_demand = filtered_df.set_index(datetime_col).resample('D').size()
+        fig_cal, ax = calplot.calplot(
+            daily_demand,
+            cmap='YlGnBu',
+            figsize=(14, 4),
+            suptitle='Calendar Heatmap of Ride Demand'
+        )
+        st.pyplot(fig_cal)
 
 with tab3:
     st.header("📈 Future Ride Demand Forecast")
-    
+
     future_days = st.slider("Select number of days to forecast:", 7, 90, 30, key="forecast_slider")
-    
+
     future = model.make_future_dataframe(periods=future_days * 24, freq='h')
     forecast = model.predict(future)
-    
+
     st.subheader("Forecasted Hourly Ride Demand")
     fig_forecast = plot_plotly(model, forecast)
     st.plotly_chart(fig_forecast, use_container_width=True)
-    
+
     st.subheader("Forecast Components")
-    # Business Insights as Text
     st.info(
         """
         **About the Components:** The model breaks down the forecast into three parts:
