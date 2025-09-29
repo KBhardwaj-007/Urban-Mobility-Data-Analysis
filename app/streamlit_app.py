@@ -172,17 +172,6 @@ with tab2:
         )
         st.plotly_chart(fig_duration, use_container_width=True)
 
-        # 📆 Calendar Heatmap of Demand
-        st.subheader("📆 Calendar Heatmap of Ride Demand")
-        daily_demand = filtered_df.set_index(datetime_col).resample('D').size()
-        fig_cal, ax = calplot.calplot(
-            daily_demand,
-            cmap='YlGnBu',
-            figsize=(14, 4),
-            suptitle='Calendar Heatmap of Ride Demand'
-        )
-        st.pyplot(fig_cal)
-
 with tab3:
     st.header("📈 Future Ride Demand Forecast")
 
