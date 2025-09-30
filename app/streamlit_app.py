@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from prophet import Prophet
 from prophet.plot import plot_plotly
 import datetime
-import calplot
 
 # --- Page Configuration ---
 st.set_page_config(
