@@ -14,4 +14,3 @@ geopy
 python-dateutil
 logging
 joblib
-calplot
