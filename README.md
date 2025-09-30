@@ -114,18 +114,28 @@ Make sure you have a requirements.txt file with all the necessary libraries, the
 pip install -r requirements.txt
 ```
 
-### 4. Run the Jupyter Notebook
+### 4. Run Python Files Sequentially
+Run the following Python files in order:
+```sh
+python src/data_ingest.py
+python src/data_clean.py
+python src/feature_engineering.py
+python src/forecast_model.py
+```
+
+### 5. Run the Jupyter Notebook
 **Note:** If Jupyter is not installed, you can install it using the following command:
 ```sh
 pip install jupyter
 ```
-To see the full analysis pipeline, launch Jupyter:
+To run the analysis in Jupyter notebooks, use the following commands:
 ```sh
-jupyter notebook Urban_Mobility_Data_Analysis.ipynb
+jupyter notebook notebooks/eda.ipynb
+jupyter notebook notebooks/geospatial.ipynb
 ```
 
-### 5. Launch the Streamlit Dashboard
+### 6. Launch the Streamlit Dashboard
 To run the interactive web app locally, use the following command:
 ```sh
-streamlit run streamlit_app.py
+streamlit run app/streamlit_app.py
 ```
