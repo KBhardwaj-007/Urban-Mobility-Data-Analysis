@@ -138,15 +138,19 @@ with tab2:
             """
             The period between 6 PM and 7 PM is consistently the busiest time for pickups. This aligns with typical evening rush hours, 
             where demand spikes due to people finishing work or attending evening events. 
-            **Insight:** Businesses can optimize resources and staffing during these hours to meet demand and reduce wait times.
-            It would be beneficial to ensure vehicles are readily available during this peak window, and consider incentives for drivers to stay active during this time.
-            Predictive algorithms could be leveraged to anticipate demand, ensuring there are no gaps in coverage and customers can rely on a quick response during these critical hours.
+            
+            **Insight:** 
+            - Businesses can optimize resources and staffing during these hours to meet demand and reduce wait times.
+            - It would be beneficial to ensure vehicles are readily available during this peak window, and consider incentives for drivers to stay active during this time.
+            - Predictive algorithms could be leveraged to anticipate demand, ensuring there are no gaps in coverage and customers can rely on a quick response during these critical hours.
 
             The 3 AM to 5 AM window experiences the lowest number of pickups, 
             likely due to the late hour when most people are either sleeping or not in need of transportation.
-            **Insight:** Lower demand means fewer vehicles should be scheduled to operate during this time to reduce operational costs.
+            
+            **Insight:** 
+            - Lower demand means fewer vehicles should be scheduled to operate during this time to reduce operational costs.
             However, for businesses offering 24/7 services, focusing on more efficient, 
-            cost-effective operations or reducing driver availability during these hours could increase profitability without compromising service quality.
+            - cost-effective operations or reducing driver availability during these hours could increase profitability without compromising service quality.
             """
         )
 
@@ -163,8 +167,9 @@ with tab2:
         # Business Insights as Text
         st.info(
             """
-            **Insight:** The heatmap clearly shows two daily peaks on weekdays: a morning rush (7-9 AM) and an evening peak (5-7 PM). 
-            Demand is significantly higher and later on Fridays and Saturdays, indicating strong leisure activity. 
+            **Insight:** 
+            - The heatmap clearly shows two daily peaks on weekdays: a morning rush (7-9 AM) and an evening peak (5-7 PM). 
+            - Demand is significantly higher and later on Fridays and Saturdays, indicating strong leisure activity. 
             This information is crucial for optimising driver allocation and implementing surge pricing.
             """
         )
@@ -187,9 +192,10 @@ with tab2:
 
         st.info(
             """
-            **Insight:** This chart shows the complete breakdown of trip sizes. Overwhelmingly, most trips consist of a single passenger,
+            **Insight:** 
+            - This chart shows the complete breakdown of trip sizes. Overwhelmingly, most trips consist of a single passenger,
             which strongly indicates that a majority of rides are for individual commutes or travel. 
-            This data is vital for fleet management and marketing strategies.
+            - This data is vital for fleet management and marketing strategies.
             """
         )
 
@@ -208,9 +214,11 @@ with tab2:
             """
             The majority of trips fall within the 5-minute to 10-minute range, 
             indicating that most customers are taking relatively short trips.
-            **Insight:** Shorter trip durations suggest that businesses can optimize vehicle use by ensuring the fleet is well-distributed across areas where demand for quick rides is high. 
-            Shorter trips also typically correlate with lower fuel and operational costs, which can increase overall efficiency.
-            Businesses could consider offering specific pricing strategies (e.g., flat rates for short trips) to incentivize customers to use the service more frequently during these high-demand short-ride periods.
+            
+            **Insight:** 
+            - Shorter trip durations suggest that businesses can optimize vehicle use by ensuring the fleet is well-distributed across areas where demand for quick rides is high. 
+            - Shorter trips also typically correlate with lower fuel and operational costs, which can increase overall efficiency.
+            - Businesses could consider offering specific pricing strategies (e.g., flat rates for short trips) to incentivize customers to use the service more frequently during these high-demand short-ride periods.
             """
         )
 
